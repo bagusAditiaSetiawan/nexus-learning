@@ -16,4 +16,6 @@ type Post {
 
 type Query {
   drafts: [Post]!
+  posts: [Post]!
+  publish: [Post]!
 }

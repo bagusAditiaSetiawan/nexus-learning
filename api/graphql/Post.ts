@@ -21,14 +21,13 @@ export const PostMutation = extendType({
         body: nonNull(stringArg()),
       },
       resolve: (root, args, ctx) => {
-        const draft = {
-          id: ctx.db.posts.length + 1,
-          title: args.title,
-          body: args.body,
-          published: false,
-        }
-        ctx.db.posts.push(draft);
-        return draft;
+        return ctx.db.post.create({
+          data: {            
+            title: args.title,
+            body: args.body,
+            published: false,
+          }
+        });
       }
     });
     t.field('publish', {
@@ -37,10 +36,12 @@ export const PostMutation = extendType({
         draftId: nonNull(intArg()),
       },
       resolve(root, args, ctx) {
-        let draftToPublish = ctx.db.posts.find(post => post.id === args.draftId);
-        if(!draftToPublish) throw new Error(`Post with id ${args.draftId} not founded`);
-        draftToPublish.published = true;
-        return draftToPublish;
+        return ctx.db.post.update({
+          where: { id: args.draftId },
+          data: {
+            published: true,
+          },
+        });
       }
     })
   }
@@ -49,11 +50,23 @@ export const PostMutation = extendType({
 export const PostQuery = extendType({
     type: 'Query',                         // 2
     definition(t) {  
+        t.nonNull.list.field('posts', {
+          type: 'Post',
+          resolve(_root, _args, ctx) {
+            return ctx.db.post.findMany();
+          },
+        })
         t.nonNull.list.field('drafts', {
             type: 'Post',
-            resolve(_root, _args, ctx) {
-                return ctx.db.posts.filter((post) => post.published === true);
-              },
+            resolve(_root, _args, ctx) {        
+              return ctx.db.post.findMany({ where: { published: false } })
+            },
         })
+        t.nonNull.list.field('publish', {
+          type: 'Post',
+          resolve(_root, _args, ctx) {
+            return ctx.db.post.findMany({ where: { published: true } })
+            },
+      })
     },
   })
