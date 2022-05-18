@@ -8,6 +8,8 @@ type Mutation {
 }
 
 type Post {
+  author: Int
+  authorId: Int
   body: String
   id: Int
   published: Boolean
@@ -18,4 +20,12 @@ type Query {
   drafts: [Post]!
   posts: [Post]!
   publish: [Post]!
+  users: [User]!
+}
+
+type User {
+  email: String
+  id: Int
+  name: String
+  password: String
 }

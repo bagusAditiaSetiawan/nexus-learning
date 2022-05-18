@@ -6,6 +6,8 @@ export const Post = objectType({
   definition(t){
       t.int('id');
       t.string('title');
+      t.int('authorId');
+      t.int('author');
       t.string('body');
       t.boolean('published');
   }

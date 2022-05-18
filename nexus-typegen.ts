@@ -30,12 +30,20 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Post: { // root type
+    author?: number | null; // Int
+    authorId?: number | null; // Int
     body?: string | null; // String
     id?: number | null; // Int
     published?: boolean | null; // Boolean
     title?: string | null; // String
   }
   Query: {};
+  User: { // root type
+    email?: string | null; // String
+    id?: number | null; // Int
+    name?: string | null; // String
+    password?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -54,6 +62,8 @@ export interface NexusGenFieldTypes {
     publish: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
+    author: number | null; // Int
+    authorId: number | null; // Int
     body: string | null; // String
     id: number | null; // Int
     published: boolean | null; // Boolean
@@ -63,6 +73,13 @@ export interface NexusGenFieldTypes {
     drafts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     posts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
     publish: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+    users: Array<NexusGenRootTypes['User'] | null>; // [User]!
+  }
+  User: { // field return type
+    email: string | null; // String
+    id: number | null; // Int
+    name: string | null; // String
+    password: string | null; // String
   }
 }
 
@@ -72,6 +89,8 @@ export interface NexusGenFieldTypeNames {
     publish: 'Post'
   }
   Post: { // field return type name
+    author: 'Int'
+    authorId: 'Int'
     body: 'String'
     id: 'Int'
     published: 'Boolean'
@@ -81,6 +100,13 @@ export interface NexusGenFieldTypeNames {
     drafts: 'Post'
     posts: 'Post'
     publish: 'Post'
+    users: 'User'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'Int'
+    name: 'String'
+    password: 'String'
   }
 }
 
