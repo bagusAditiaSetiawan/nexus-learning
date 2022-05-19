@@ -43,6 +43,11 @@ export interface NexusGenObjects {
     id?: number | null; // Int
     name?: string | null; // String
     password?: string | null; // String
+    token?: string | null; // String
+  }
+  UserLoginPayload: { // root type
+    token?: string | null; // String
+    user?: NexusGenRootTypes['User'] | null; // User
   }
 }
 
@@ -60,6 +65,8 @@ export interface NexusGenFieldTypes {
   Mutation: { // field return type
     createDraft: NexusGenRootTypes['Post']; // Post!
     publish: NexusGenRootTypes['Post'] | null; // Post
+    userLogin: NexusGenRootTypes['UserLoginPayload'] | null; // UserLoginPayload
+    userRegister: NexusGenRootTypes['UserLoginPayload'] | null; // UserLoginPayload
   }
   Post: { // field return type
     author: number | null; // Int
@@ -80,6 +87,11 @@ export interface NexusGenFieldTypes {
     id: number | null; // Int
     name: string | null; // String
     password: string | null; // String
+    token: string | null; // String
+  }
+  UserLoginPayload: { // field return type
+    token: string | null; // String
+    user: NexusGenRootTypes['User'] | null; // User
   }
 }
 
@@ -87,6 +99,8 @@ export interface NexusGenFieldTypeNames {
   Mutation: { // field return type name
     createDraft: 'Post'
     publish: 'Post'
+    userLogin: 'UserLoginPayload'
+    userRegister: 'UserLoginPayload'
   }
   Post: { // field return type name
     author: 'Int'
@@ -107,6 +121,11 @@ export interface NexusGenFieldTypeNames {
     id: 'Int'
     name: 'String'
     password: 'String'
+    token: 'String'
+  }
+  UserLoginPayload: { // field return type name
+    token: 'String'
+    user: 'User'
   }
 }
 
@@ -118,6 +137,15 @@ export interface NexusGenArgTypes {
     }
     publish: { // args
       draftId: number; // Int!
+    }
+    userLogin: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+    userRegister: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
   }
 }

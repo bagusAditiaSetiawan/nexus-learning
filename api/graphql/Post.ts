@@ -1,5 +1,4 @@
 import { objectType, extendType, nonNull, stringArg, intArg } from "nexus";
-import { DynamicOutputPropertyDef } from "nexus/dist/dynamicProperty";
 
 export const Post = objectType({
   name: 'Post',
@@ -55,6 +54,7 @@ export const PostQuery = extendType({
         t.nonNull.list.field('posts', {
           type: 'Post',
           resolve(_root, _args, ctx) {
+            console.log(process.env.JWT_SECRET);
             return ctx.db.post.findMany();
           },
         })

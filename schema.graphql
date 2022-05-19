@@ -5,6 +5,8 @@
 type Mutation {
   createDraft(body: String!, title: String!): Post!
   publish(draftId: Int!): Post
+  userLogin(email: String!, password: String!): UserLoginPayload
+  userRegister(email: String!, name: String!, password: String!): UserLoginPayload
 }
 
 type Post {
@@ -28,4 +30,10 @@ type User {
   id: Int
   name: String
   password: String
+  token: String
+}
+
+type UserLoginPayload {
+  token: String
+  user: User
 }
